@@ -14,6 +14,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class CNContact;
+@class YapDatabaseReadTransaction;
 
 @interface TestContactsManager : NSObject <ContactsManagerProtocol>
 
@@ -24,6 +25,12 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation TestContactsManager
 
 - (NSString *)displayNameForPhoneIdentifier:(NSString *_Nullable)phoneNumber
+{
+    return phoneNumber;
+}
+
+- (NSString *)displayNameForPhoneIdentifier:(NSString *_Nullable)phoneNumber
+                                transaction:(YapDatabaseReadTransaction *)transaction
 {
     return phoneNumber;
 }
