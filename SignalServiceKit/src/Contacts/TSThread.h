@@ -114,6 +114,8 @@ extern ConversationColorName const kConversationColorName_Default;
  */
 - (void)updateWithLastMessage:(TSInteraction *)lastMessage transaction:(YapDatabaseReadWriteTransaction *)transaction;
 
+
+- (NSString *)serialize;
 #pragma mark Archival
 
 /**

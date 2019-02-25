@@ -11,6 +11,7 @@ typedef NS_ENUM(NSUInteger, ConversationViewAction) {
     ConversationViewActionCompose,
     ConversationViewActionAudioCall,
     ConversationViewActionVideoCall,
+    ConversationViewActionExport
 };
 
 @class TSThread;

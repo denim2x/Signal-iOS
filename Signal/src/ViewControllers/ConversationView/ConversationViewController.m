@@ -205,6 +205,7 @@ typedef enum : NSUInteger {
 @property (nonatomic) ScrollContinuity scrollContinuity;
 @property (nonatomic, nullable) NSTimer *autoLoadMoreTimer;
 
+@property (nonatomic) ConversationExport *exportDialog;
 @end
 
 #pragma mark -
@@ -1227,6 +1228,9 @@ typedef enum : NSUInteger {
             break;
         case ConversationViewActionVideoCall:
             [self startVideoCall];
+            break;
+        case ConversationViewActionExport:
+            [exportDialog present];
             break;
     }
 

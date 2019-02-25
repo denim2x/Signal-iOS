@@ -452,6 +452,47 @@ ConversationColorName const kConversationColorName_Default = ConversationColorNa
     }
 }
 
+- (NSString *) serialize
+{
+    id<XMLStreamWriter> xmlWriter = [[XMLWriter alloc]init];
+    [xmlWriter writeStartDocument:@"1.0" encoding:@"UTF-8"];
+    [xmlWriter writeStartElement:@"TSThread"];
+        [xmlWriter writeAttribute:@"shouldThreadBeVisible" value:self.shouldThreadBeVisible];
+        [xmlWriter writeAttribute:@"creationDate" value:self.creationDate];
+        [xmlWriter writeAttribute:@"isArchivedByLegacyTimestampForSorting" value:self.isArchivedByLegacyTimestampForSorting];
+        [xmlWriter writeStartElement:@"Messages"];
+        [self.thread enumerateCollectionObjectsUsingBlock:^(id i, BOOL *stop) {
+            if (stop) return;
+            instancetype item = [self fetchObjectWithUniqueID:id];
+            [xmlWriter writeStartElement:@"Message"];
+                [xmlWriter writeAttribute:@"expiresInSeconds" value:item.expiresInSeconds];	
+                [xmlWriter writeAttribute:@"expireStartedAt" value:item expireStartedAt];
+                [xmlWriter writeAttribute:@"expiresAt" value:item.expiresAt];
+                [xmlWriter writeAttribute:@"isExpiringMessage" value:item.isExpiringMessage];
+                [xmlWriter writeAttribute:@"contactShare" value:item.contactShare];
+                [xmlWriter writeAttribute:@"linkPreview" value:item.linkPreview];
+                [xmlWriter writeAttribute:@"attachmentIds" value:[item.attachmentIds componentsJoinedByString:@" "]];
+                [xmlWriter writeStartElement:@"quotedMessage"];
+                    [xmlWriter writeCharacters:item.quotedMessage];
+                [xmlWriter writeEndElement];
+                [xmlWriter writeStartElement:@"OWSContact"];
+                    [xmlWriter writeAttribute:@"phoneType" value:item.contactShare.phoneType];
+                    [xmlWriter writeAttribute:@"label" value:item.contactShare.label];
+                    [xmlWriter writeAttribute:@"phoneNumber" value:item.contactShare.phoneNumber];
+                [xmlWriter writeEndElement];
+                [xmlWriter writeStartElement:@"OWSLinkPreview"];
+                    [xmlWriter writeAttribute:@"featureEnabled" value:item.linkPreview.featureEnabled];
+                    [xmlWriter writeAttribute:@"urlString" value:item.linkPreview.urlString];
+                    [xmlWriter writeAttribute:@"title" value:item.linkPreview.title];
+                    [xmlWriter writeAttribute:@"imageAttachementId" value:item.linkPreview.imageAttachmentId];
+                [xmlWriter writeEndElement];
+                [xmlWriter writeCharacters:item.body];
+            [xmlWriter writeEndElement];
+        }];
+        [xmlWriter writeEndElement];
+    [xmlWriter writeEndElement];
+    return xmlWriter;
+}
 #pragma mark - Archival
 
 - (BOOL)isArchivedWithTransaction:(YapDatabaseReadTransaction *)transaction;
