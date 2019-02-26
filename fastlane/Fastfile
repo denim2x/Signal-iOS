@@ -35,7 +35,7 @@ platform :ios do
       clean: true,
       output_directory: "build", # Destination directory. Defaults to current directory.
       output_name: "Signal.ipa",       # specify the name of the .ipa file to generate (including file extension)
-      sdk: "iOS 7" 
+      sdk: "iOS 10" 
     )
   end
 end
