@@ -3,6 +3,7 @@
 //
 
 #import "TSThread.h"
+#import "XMLWriter.h"
 #import "NSString+SSK.h"
 #import "OWSDisappearingMessagesConfiguration.h"
 #import "OWSPrimaryStorage.h"

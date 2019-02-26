@@ -61,6 +61,7 @@ def shared_pods
   pod 'PureLayout', :inhibit_warnings => true
   pod 'Reachability', :inhibit_warnings => true
   pod 'YYImage', :inhibit_warnings => true
+  pod 'XMLWriter', git: 'https://github.com/ahmyi/XMLWriter'
 end
 
 target 'Signal' do
